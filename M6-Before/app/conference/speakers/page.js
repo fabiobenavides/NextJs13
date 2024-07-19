@@ -1,7 +1,7 @@
 import styles from "../conference.module.css";
 import Link from "next/link";
 
-export let speakerJson = {};
+export var speakerJson = {};
 
 // Static data fetching
 async function fetchSpeakers() {
@@ -11,6 +11,7 @@ async function fetchSpeakers() {
 
   const data = await response.json();
   speakerJson = data;
+  //console.log(speakerJson);
   return data;
 }
 
@@ -25,7 +26,9 @@ export default async function Page() {
       <h1>Welcome to Globomantics Speakers</h1>
       {data.speakers.map(({ id, name, bio }) => (
         <div key={id} className={styles.infoContainer}>
+          <Link href={`/conference/speakers/${name}`}>
           <h3 className={styles.titleText}>{name}</h3>
+          </Link>
           <h5 className={styles.descText}>{bio}</h5>
         </div>
       ))}
